@@ -4,14 +4,20 @@ import br.com.zup.edu.pizzaria.pedidos.Pedido;
 import br.com.zup.edu.pizzaria.pizzas.PizzaRepository;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 import static com.fasterxml.jackson.annotation.JsonCreator.Mode.PROPERTIES;
 
 public class NovoPedidoRequest {
 
+    @NotNull
     private EnderecoRequest endereco;
 
+    @NotNull
+    @Size(min=1)
     private List<ItemRequest> itens;
 
     @JsonCreator(mode = PROPERTIES)
