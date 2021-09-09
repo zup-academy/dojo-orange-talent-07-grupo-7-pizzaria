@@ -6,15 +6,18 @@ import br.com.zup.edu.pizzaria.pedidos.TipoDeBorda;
 import br.com.zup.edu.pizzaria.pizzas.Pizza;
 import br.com.zup.edu.pizzaria.pizzas.PizzaRepository;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 public class ItemRequest {
 
+    @JsonProperty
     @NotNull
     private Long pizzaId;
 
+    @JsonProperty
     @NotNull
     private TipoDeBorda borda;
 

@@ -25,6 +25,7 @@ class NovoIngredienteRequest {
     @Positive
     private int quantidade; // tudo é grama
 
+
     public NovoIngredienteRequest(String nome,
                                   BigDecimal preco,
                                   int quantidade) {

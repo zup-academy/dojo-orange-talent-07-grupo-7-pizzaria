@@ -3,6 +3,7 @@ package br.com.zup.edu.pizzaria.pedidos.novopedido;
 import br.com.zup.edu.pizzaria.pedidos.Pedido;
 import br.com.zup.edu.pizzaria.pizzas.PizzaRepository;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -12,10 +13,11 @@ import java.util.List;
 import static com.fasterxml.jackson.annotation.JsonCreator.Mode.PROPERTIES;
 
 public class NovoPedidoRequest {
-
+    @JsonProperty
     @NotNull
     private EnderecoRequest endereco;
 
+    @JsonProperty
     @NotNull
     @Size(min=1)
     private List<ItemRequest> itens;
