@@ -43,7 +43,52 @@ class NovoIngredienteControllerTest {
         mvc.perform(request)
            .andExpect(status().isCreated())
            .andExpect(header().exists("Location"))
-                .andExpect(redirectedUrlPattern("/api/ingredientes/\\d"));
+                .andExpect(redirectedUrlPattern("/api/ingredientes/{\\d*}"));
 
+    }
+    @Test
+    void naoDeveCadastrarNovoIngredienteComPrecoNegativo() throws Exception{
+        NovoIngredienteRequest body = new NovoIngredienteRequest("Queijo muçarela", new BigDecimal("-2.0"), 200);
+        MockHttpServletRequestBuilder request = post("/api/ingredientes")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(body));
+
+        mvc.perform(request)
+                .andExpect(status().isBadRequest());
+
+
+
+    }
+
+    @Test
+    void naoDeveCadastrarNovoIngredienteComPrecoZero() throws Exception{
+        NovoIngredienteRequest body = new NovoIngredienteRequest("Queijo muçarela", new BigDecimal("0.0"), 200);
+        MockHttpServletRequestBuilder request = post("/api/ingredientes")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(body));
+
+        mvc.perform(request)
+                .andExpect(status().isBadRequest());
+}
+
+    @Test
+    void naoDeveCadastrarNovoIngredienteComQuantidadeNegativa() throws Exception{
+        NovoIngredienteRequest body = new NovoIngredienteRequest("Queijo muçarela", new BigDecimal("2.0"), -1);
+        MockHttpServletRequestBuilder request = post("/api/ingredientes")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(body));
+
+        mvc.perform(request)
+                .andExpect(status().isBadRequest());
+    }
+    @Test
+    void naoDeveCadastrarNovoIngredienteComQuantidadeZero() throws Exception{
+        NovoIngredienteRequest body = new NovoIngredienteRequest("Queijo muçarela", new BigDecimal("2.0"), 0);
+        MockHttpServletRequestBuilder request = post("/api/ingredientes")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(body));
+
+        mvc.perform(request)
+                .andExpect(status().isBadRequest());
     }
 }
